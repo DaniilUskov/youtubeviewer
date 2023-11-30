@@ -37,7 +37,7 @@ const items2: MenuProps["items"] = [
 });
 
 export default (props: any) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <Layout>
