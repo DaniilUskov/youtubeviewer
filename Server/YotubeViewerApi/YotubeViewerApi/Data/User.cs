@@ -20,6 +20,8 @@ namespace YoutubeViewerCore.Data
         public string Password { get; set; } = null!;
 
 		public Role Role { get; set; }
+
+        public string? NickNameColor { get; set; }
 	}
 }
 
