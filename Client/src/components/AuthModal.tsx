@@ -44,7 +44,7 @@ export default () => {
                   label="Логин"
                   name="login"
                   rules={[
-                    { required: true, message: "Please input your login!" },
+                    { required: true},
                   ]}
                 >
                   <Input />
@@ -54,7 +54,7 @@ export default () => {
                   label="Пароль"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" },
+                    { required: true},
                   ]}
                 >
                   <Input.Password />
@@ -86,7 +86,7 @@ export default () => {
                   label="Ник"
                   name="nickName"
                   rules={[
-                    { required: true, message: "Please input your nickname!" },
+                    { required: true},
                   ]}
                 >
                   <Input />
@@ -95,7 +95,7 @@ export default () => {
                   label="Логин"
                   name="login"
                   rules={[
-                    { required: true, message: "Please input your login!" },
+                    { required: true},
                   ]}
                 >
                   <Input />
@@ -105,7 +105,7 @@ export default () => {
                   label="Пароль"
                   name="password"
                   rules={[
-                    { required: true, message: "Please input your password!" },
+                    { required: true},
                   ]}
                 >
                   <Input.Password />

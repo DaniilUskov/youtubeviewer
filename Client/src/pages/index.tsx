@@ -39,7 +39,6 @@ export default () => {
       <p>
         привет
       </p>
-      <AuthModal />
       
     </LayoutAuth>
     </>
