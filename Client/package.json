@@ -15,7 +15,8 @@
     "@umijs/max": "^4.0.86",
     "antd": "^5.4.0",
     "moment": "^2.29.4",
-    "react-google-button": "^0.7.2"
+    "react-google-button": "^0.7.2",
+    "react-player": "^2.13.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",

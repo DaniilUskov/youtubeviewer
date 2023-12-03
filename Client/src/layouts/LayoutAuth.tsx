@@ -1,7 +1,7 @@
 import Search from "@/components/Search";
 import SideMenu from "@/constants/SideMenu";
 import dropdownMenu from "@/constants/UserMenu";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { Dropdown, Layout, Menu, Space } from "antd";
 import { useState } from "react";
 
@@ -26,7 +26,7 @@ export default (props: any) => {
         <Dropdown menu={{ items: dropdownMenu }} trigger={["click"]}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <UserOutlined style={{ fontSize: '20px', color: 'white' }}/>
+              <UserOutlined style={{ fontSize: "20px", color: "white" }} />
             </Space>
           </a>
         </Dropdown>
@@ -78,16 +78,8 @@ export default (props: any) => {
             )}
           </Menu>
         </Sider>
-        <Layout style={{ margin: "16px 0", padding: "0 24px 24px" }}>
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
-            {props.children}
-          </Content>
+        <Layout style={{}}>
+          <Content>{props.children}</Content>
         </Layout>
       </Layout>
     </Layout>

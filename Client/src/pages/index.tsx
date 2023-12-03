@@ -1,11 +1,10 @@
-import AuthModal from "@/components/AuthModal";
-import LayoutAuth from "@/layouts/LayoutAuth"
-import { request } from "@umijs/max";
-import { useModel } from "@umijs/max";
-import { useAccess } from "@umijs/max";
-import { message } from "antd";
+import LayoutAuth from "@/layouts/LayoutAuth";
+import "@/styles/index.css";
+import { request, useAccess, useModel } from "@umijs/max";
+import { Col, Row, message } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
-
+import ReactPlayer from "react-player";
 
 export default () => {
   const { initialState, setInitialState, refresh } = useModel("@@initialState");
@@ -35,12 +34,43 @@ export default () => {
 
   return (
     <>
-    <LayoutAuth>
-      <p>
-        привет
-      </p>
-      
-    </LayoutAuth>
+      <LayoutAuth>
+        <Row>
+          <Col span={18} className="player-wrapper">
+            <ReactPlayer
+              className="react-player"
+              url="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+              width="100%"
+              height="80%"
+              controls={true}
+            />
+            <p>Название видео</p>
+          </Col>
+          <Col span={6}>
+            <div
+              style={{
+                backgroundColor: "gray",
+                height: "100%",
+                width: "100%",
+                borderRadius: 0,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ marginTop: "auto" }}>
+                <TextArea
+                  showCount
+                  maxLength={100}
+                  // onChange={onChange}
+                  placeholder="Введите сообщение"
+                  rows={2}
+                  style={{ resize: "none", borderRadius: 0 }}
+                />
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </LayoutAuth>
     </>
-  )
-}
+  );
+};
