@@ -1,8 +1,8 @@
 import Search from "@/components/Search";
+import DropdownMenu from "@/components/UserDropDownMenu";
 import SideMenu from "@/constants/SideMenu";
-import dropdownMenu from "@/constants/UserMenu";
-import { UserOutlined } from "@ant-design/icons";
-import { Dropdown, Layout, Menu, Space } from "antd";
+import { Link } from "@umijs/max";
+import { Layout, Menu } from "antd";
 import { useState } from "react";
 
 const { Header, Content, Sider } = Layout;
@@ -12,7 +12,7 @@ export default (props: any) => {
   const [selectedKey, setSelectedKey] = useState("Главное меню");
 
   return (
-    <Layout>
+    <Layout style={{height: "100vh"}}>
       <Header
         style={{
           display: "flex",
@@ -23,13 +23,7 @@ export default (props: any) => {
       >
         <div className="demo-logo" />
         <Search />
-        <Dropdown menu={{ items: dropdownMenu }} trigger={["click"]}>
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              <UserOutlined style={{ fontSize: "20px", color: "white" }} />
-            </Space>
-          </a>
-        </Dropdown>
+        <DropdownMenu />
       </Header>
       <Layout>
         <Sider
@@ -61,7 +55,7 @@ export default (props: any) => {
                       title={child.name}
                       onClick={() => setSelectedKey(`${child.name}-${index}`)}
                     >
-                      {child.name}
+                      <Link to={child.link}>{child.name}</Link>
                     </Menu.Item>
                   ))}
                 </Menu.SubMenu>
@@ -72,13 +66,13 @@ export default (props: any) => {
                   title={item.name}
                   onClick={() => setSelectedKey(`${item.name}-${index}`)}
                 >
-                  {item.name}
+                  <Link to={item.link}>{item.name}</Link>
                 </Menu.Item>
               )
             )}
           </Menu>
         </Sider>
-        <Layout style={{}}>
+        <Layout>
           <Content>{props.children}</Content>
         </Layout>
       </Layout>

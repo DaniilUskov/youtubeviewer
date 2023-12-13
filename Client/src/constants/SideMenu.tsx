@@ -9,7 +9,7 @@ import {
 export default [
   {
     name: "Главная",
-    link: "/mainpage",
+    link: "/",
     icon: <HomeFilled />,
   },
   {
@@ -19,7 +19,7 @@ export default [
   },
   {
     name: "Мой канал",
-    link: "/mychanel",
+    // link: "/mychanel",
     icon: <VideoCameraFilled />,
     children: [
       {

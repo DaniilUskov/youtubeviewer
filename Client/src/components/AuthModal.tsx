@@ -1,14 +1,76 @@
 import "@/styles/AuthModal.css";
-import { Button, Carousel, ColorPicker, Flex, Form, Input, Modal } from "antd";
+import { request, useModel } from "@umijs/max";
+import {
+  Avatar,
+  Button,
+  Carousel,
+  ColorPicker,
+  Flex,
+  Form,
+  Input,
+  Modal,
+  Select,
+  message,
+} from "antd";
 import Title from "antd/es/typography/Title";
 import { useRef, useState } from "react";
 
 export default () => {
+  const { initialState, setInitialState, refresh } = useModel("@@initialState");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const carouselRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [avatarImage, setAvatarImage] = useState(null);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const options = Array.from({ length: 53 }, (_, i) => ({
+    label: <Avatar src={`https://xsgames.co/randomusers/assets/avatars/pixel/${i + 1}.jpg`} />,
+    value: `https://xsgames.co/randomusers/assets/avatars/pixel/${i + 1}.jpg`,
+  }));
+
+  const loginHandler = async (data: any) => {
+    setLoading(true);
+    request("/api/auth/login", {
+      method: "POST",
+      data,
+    })
+      .then((result: any) => {
+        if (result.status == 0) {
+          localStorage.setItem("token", result.token);
+
+          setInitialState({ ...initialState, ...result });
+          refresh();
+          location.reload();
+        } else {
+          message.error(result.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const registrationHandler = async (data: any) => {
+    console.log(data);
+    data.nickNameColor = data.nickNameColor.toHexString();
+    setLoading(true);
+    request("/api/auth/register", {
+      method: "POST",
+      data,
+    })
+      .then((result: any) => {
+        if (result.status == 0) {
+          localStorage.setItem("token", result.token);
+
+          setInitialState({ ...initialState, ...result });
+          refresh();
+          location.reload();
+        } else {
+          message.error(result.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleOk = () => {
@@ -21,12 +83,16 @@ export default () => {
 
   return (
     <>
-      <Button type="primary" onClick={() => setIsModalOpen(true)}>
+      <Button
+        type="link"
+        style={{ color: "black" }}
+        onClick={() => setIsModalOpen(true)}
+      >
         Войти
       </Button>
       <Modal
         footer=""
-        open={isModalOpen}
+        visible={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -37,15 +103,13 @@ export default () => {
               <Form
                 layout="vertical"
                 style={{ maxWidth: 600 }}
-                //   onFinish={onFinish}
+                onFinish={loginHandler}
                 autoComplete="off"
               >
                 <Form.Item
                   label="Логин"
                   name="login"
-                  rules={[
-                    { required: true},
-                  ]}
+                  rules={[{ required: true }]}
                 >
                   <Input />
                 </Form.Item>
@@ -53,9 +117,7 @@ export default () => {
                 <Form.Item
                   label="Пароль"
                   name="password"
-                  rules={[
-                    { required: true},
-                  ]}
+                  rules={[{ required: true }]}
                 >
                   <Input.Password />
                 </Form.Item>
@@ -66,7 +128,7 @@ export default () => {
                   >
                     Регистрация
                   </Button>
-                  <Button type="text" htmlType="submit">
+                  <Button type="text" htmlType="submit" loading={loading}>
                     Войти
                   </Button>
                 </Flex>
@@ -79,24 +141,20 @@ export default () => {
               <Form
                 style={{ maxWidth: 600 }}
                 layout="vertical"
-                //   onFinish={onFinish}
+                onFinish={registrationHandler}
                 autoComplete="off"
               >
                 <Form.Item
                   label="Ник"
                   name="nickName"
-                  rules={[
-                    { required: true},
-                  ]}
+                  rules={[{ required: true }]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
                   label="Логин"
                   name="login"
-                  rules={[
-                    { required: true},
-                  ]}
+                  rules={[{ required: true }]}
                 >
                   <Input />
                 </Form.Item>
@@ -104,14 +162,19 @@ export default () => {
                 <Form.Item
                   label="Пароль"
                   name="password"
-                  rules={[
-                    { required: true},
-                  ]}
+                  rules={[{ required: true }]}
                 >
                   <Input.Password />
                 </Form.Item>
                 <Form.Item label="Цвет никнейма" name="nickNameColor">
                   <ColorPicker />
+                </Form.Item>
+                <Form.Item label="Аватар" name="avatarImageUrl">
+                  <Select
+                    defaultValue="Выберите картинку"
+                    style={{ width: 120 }}
+                    options={options}
+                  />
                 </Form.Item>
                 <Flex gap="large" justify="center">
                   <Button
@@ -120,7 +183,7 @@ export default () => {
                   >
                     Назад
                   </Button>
-                  <Button type="text" htmlType="submit">
+                  <Button type="text" htmlType="submit" loading={loading}>
                     Зарегистрироваться
                   </Button>
                 </Flex>

@@ -12,11 +12,14 @@
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@ant-design/pro-components": "^2.4.4",
+    "@microsoft/signalr": "^8.0.0",
     "@umijs/max": "^4.0.86",
     "antd": "^5.4.0",
     "moment": "^2.29.4",
     "react-google-button": "^0.7.2",
-    "react-player": "^2.13.0"
+    "react-player": "^2.13.0",
+    "react-signalr": "^0.2.18",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.33",
