@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using YoutubeViewerApi.Models.AuthModels;
 using YoutubeViewerApi.Services;
 using YoutubeViewerApi.Services.Database;
@@ -49,7 +50,9 @@ namespace YoutubeViewerApi.Controllers
                 token = user.Token,
                 id = user.UserId,
                 userName = user.Login,
-                role = user.Role
+                role = user.Role,
+                avatarUrl = user.AvatarImageUrl,
+                nickNameColor = user.NickNameColor
             });
         }
 
@@ -73,8 +76,30 @@ namespace YoutubeViewerApi.Controllers
                 token = user!.Token,
                 id = user!.UserId,
                 userName = user!.Login,
-                role = user!.Role
+                role = user!.Role,
+                avatarUrl = user.AvatarImageUrl,
+                nickNameColor = user.NickNameColor
             });
+        }
+
+        [HttpGet]
+        public async Task<User> Profile()
+        {
+            int userId = GetUserIdFromClaims();
+
+            var user = await _databaseService.GetUserById(userId);
+
+            return user;
+        }
+
+        private int GetUserIdFromClaims()
+        {
+            var userId = User.FindFirst("Id");
+
+            if (userId is not null)
+                return int.Parse(userId.Value);
+
+            return 0;
         }
     }
 }

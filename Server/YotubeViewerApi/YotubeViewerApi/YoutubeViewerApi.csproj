@@ -21,6 +21,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.25" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.0" />
+    <PackageReference Include="Hangfire" Version="1.8.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,9 @@
     <None Remove="Services\Database\" />
     <None Remove="Models\" />
     <None Remove="Models\AuthModels\" />
+    <None Remove="Hubs\" />
+    <None Remove="Models\SessionModels\" />
+    <None Remove="Models\VideoModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -40,5 +45,8 @@
     <Folder Include="Services\Database\" />
     <Folder Include="Models\" />
     <Folder Include="Models\AuthModels\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Models\SessionModels\" />
+    <Folder Include="Models\VideoModels\" />
   </ItemGroup>
 </Project>

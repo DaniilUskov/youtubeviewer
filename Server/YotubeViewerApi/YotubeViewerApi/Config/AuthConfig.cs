@@ -5,11 +5,11 @@ namespace YoutubeViewerApi.Config
 {
     public class AuthConfig
     {
-        public string Issuer { get; set; } = null!;
+        public string Issuer { get; set; }
 
-        public string Audience { get; set; } = null!;
+        public string Audience { get; set; }
 
-        public string Key { get; set; } = null!;
+        public string Key { get; set; }
 
         public int Lifetime { get; set; }
 

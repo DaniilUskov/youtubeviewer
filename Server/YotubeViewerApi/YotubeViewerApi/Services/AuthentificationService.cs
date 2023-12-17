@@ -14,14 +14,18 @@ namespace YoutubeViewerApi.Services
     {
         private readonly IOptions<AuthConfig> _authConfig;
 
+        private readonly IHttpContextAccessor _contextAccessor;
+
         private readonly DatabaseService _databaseService;
 
         public AuthentificationService(
             IOptions<AuthConfig> authConfig,
-            DatabaseService databaseService)
+            DatabaseService databaseService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _authConfig = authConfig;
             _databaseService = databaseService;
+            _contextAccessor = httpContextAccessor;
         }
 
         public async Task<AuthLoginResponse?> SignInUser(AuthLoginRequest request)
@@ -65,7 +69,9 @@ namespace YoutubeViewerApi.Services
                 UserId = user.Id,
                 Login = user.Login,
                 Role = user.Role,
-                Token = encodedJwt
+                Token = encodedJwt,
+                AvatarImageUrl = user.AvatarImageUrl,
+                NickNameColor = user.NickNameColor!
             };
 
             return response;

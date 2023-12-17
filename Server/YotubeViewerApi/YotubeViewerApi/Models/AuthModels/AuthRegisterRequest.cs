@@ -14,6 +14,8 @@ namespace YoutubeViewerApi.Models.AuthModels
         public Role Role { get; set; }
 
         public string? NickNameColor { get; set; }
+
+        public string AvatarImageUrl { get; set; } = null!;
     }
 }
 

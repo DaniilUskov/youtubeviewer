@@ -21,7 +21,11 @@ namespace YoutubeViewerCore.Data
 
 		public Role Role { get; set; }
 
+        [Column(TypeName = "varchar(16)")]
         public string? NickNameColor { get; set; }
+
+        [Column(TypeName = "varchar(255)")]
+        public string AvatarImageUrl { get; set; } = null!;
 	}
 }
 

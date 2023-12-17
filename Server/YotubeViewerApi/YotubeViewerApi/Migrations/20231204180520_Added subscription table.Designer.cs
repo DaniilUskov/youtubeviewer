@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YoutubeViewerCore.Data;
 
@@ -10,35 +11,15 @@ using YoutubeViewerCore.Data;
 namespace YoutubeViewerApi.Migrations
 {
     [DbContext(typeof(YoutubeViewerContext))]
-    partial class YoutubeViewerContextModelSnapshot : ModelSnapshot
+    [Migration("20231204180520_Added subscription table")]
+    partial class Addedsubscriptiontable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.25")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("YoutubeViewerApi.Data.Subscription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VideoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VideoId");
-
-                    b.ToTable("Subscriptions");
-                });
 
             modelBuilder.Entity("YoutubeViewerApi.Data.Video", b =>
                 {
@@ -101,11 +82,15 @@ namespace YoutubeViewerApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<int>("VideoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("VideoUrl")
+                        .IsRequired()
+                        .HasColumnType("varchar(256)");
 
                     b.HasKey("Id");
 
@@ -119,10 +104,6 @@ namespace YoutubeViewerApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<string>("AvatarImageUrl")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -145,25 +126,6 @@ namespace YoutubeViewerApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("YoutubeViewerApi.Data.Subscription", b =>
-                {
-                    b.HasOne("YoutubeViewerCore.Data.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("YoutubeViewerApi.Data.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("Video");
                 });
 
             modelBuilder.Entity("YoutubeViewerApi.Data.Video", b =>

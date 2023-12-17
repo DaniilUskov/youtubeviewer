@@ -9,7 +9,9 @@ namespace YoutubeViewerCore.Enums
 
 		OrdinaryUser = 2,
 
-		PremiumUser = 3
-	}
+		PremiumUser = 3,
+
+        BannedUser = 4
+    }
 }
 
